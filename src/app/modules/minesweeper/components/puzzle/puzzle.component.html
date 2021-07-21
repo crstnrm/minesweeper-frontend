@@ -1,0 +1,51 @@
+<div class="content-fluid text-center">
+  <h3 class="pt-3">Minesweeper</h3>
+
+  <div class="settings-panel" *ngIf="!board">
+    <div class="title tex-muted mb-3 mt-4">Choose your level:</div>
+    <button
+      class="btn btn-primary btn-rounded"
+      (click)="createBoard(5, 5)">
+      5*5
+    </button>
+    <button
+      class="btn btn-warning btn-rounded"
+      (click)="createBoard(8, 8)">
+      8*8
+    </button>
+    <button
+      class="btn btn-danger btn-rounded"
+      (click)="createBoard(10, 10)">
+      10*10
+    </button>
+  </div>
+
+  <ng-container *ngIf="board">
+    <div class="puzzle-container">
+      <div class="puzzle-row" *ngFor="let row of boardCell; let x = index">
+        <button
+          class="puzzle-cell"
+          [ngClass]="{ 'cell-unmasked': col.show }"
+          *ngFor="let col of row; let y = index"
+          (click)="onInspectCellBoard(col)">
+          <div *ngIf="gameOver || col.show">
+            <span *ngIf="col.value != FLAG_VALUE; else isFlag">
+              {{ col.value != 0 ? col.value : '' }}
+            </span>
+            <ng-template #isFlag>
+              <img
+                class="img-fluid"
+                src="https://image.flaticon.com/icons/png/512/4372/4372342.png"
+                alt=""
+              />
+            </ng-template>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <p class="text-muted">Click on any cell and enjoy it :)</p>
+
+    <button class="btn btn-primary btn-rounded mt-3"> Terminar Partida </button>
+  </ng-container>
+</div>
