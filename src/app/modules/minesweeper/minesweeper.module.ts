@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BoardComponent } from './pages/board/board.component';
 import { PuzzleComponent } from './components/puzzle/puzzle.component';
 import { MinesweeperRoutingModule } from './minesweeper-routing.module';
-
+import {
+  JwtInterceptorProvider
+} from 'src/app/core/interceptors/jwt.interceptor';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -12,8 +14,11 @@ import { MinesweeperRoutingModule } from './minesweeper-routing.module';
     PuzzleComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     MinesweeperRoutingModule
-  ]
+  ],
+  providers: [
+    JwtInterceptorProvider
+  ],
 })
 export class MinesweeperModule { }

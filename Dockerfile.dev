@@ -1,0 +1,24 @@
+# Define use image
+FROM node:erbium-slim
+
+ENV APP_HOME=/code
+
+# Create folder to avoid permission issues
+RUN mkdir -p $APP_HOME && chown node:node $APP_HOME
+
+# Specify work directory
+WORKDIR $APP_HOME
+
+# Install dependencies
+RUN npm install -g @angular/cli@11.2.14
+
+COPY package.json ./
+RUN npm install
+
+# Copy files to work directory
+COPY ./ ./
+
+# Change to the app user for security reasons
+USER node
+
+CMD ng serve --host 0.0.0.0
